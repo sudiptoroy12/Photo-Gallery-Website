@@ -1,14 +1,24 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaArrowLeft, FaRegHeart } from "react-icons/fa";
-import type { IPhoto } from "../types/Phototypes";
+import {
+  FaArrowLeft,
+  FaHeart,
+  FaRegHeart,
+} from "react-icons/fa";
 
-    
+import type { IPhoto } from "../types/Phototypes";
+import { useFavorite } from "../context/FavoriteContext";
 
 const PhotoDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const {
+    addFavorite,
+    removeFavorite,
+    isFavorite,
+  } = useFavorite();
 
   const [photo, setPhoto] = useState<IPhoto | null>(null);
   const [loading, setLoading] = useState(true);
@@ -66,6 +76,16 @@ const PhotoDetails = () => {
     );
   }
 
+  const favorite = isFavorite(photo.id);
+
+  const handleFavorite = () => {
+    if (favorite) {
+      removeFavorite(photo.id);
+    } else {
+      addFavorite(photo);
+    }
+  };
+
   return (
     <section className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-orange-50 px-5 py-12">
       <div className="mx-auto max-w-6xl">
@@ -103,9 +123,9 @@ const PhotoDetails = () => {
             </h1>
 
             <p className="mt-5 leading-7 text-gray-500">
-              Explore this beautiful photograph from our gallery collection.
-              You can save your favorite photos and discover more moments
-              from the same album.
+              Explore this beautiful photograph from our gallery
+              collection. You can save your favorite photos and
+              discover more moments from the same album.
             </p>
 
             {/* Info */}
@@ -114,6 +134,7 @@ const PhotoDetails = () => {
                 <p className="text-xs text-gray-400">
                   Photo ID
                 </p>
+
                 <p className="mt-1 font-bold text-gray-800">
                   #{photo.id}
                 </p>
@@ -123,6 +144,7 @@ const PhotoDetails = () => {
                 <p className="text-xs text-gray-400">
                   Album ID
                 </p>
+
                 <p className="mt-1 font-bold text-gray-800">
                   #{photo.albumId}
                 </p>
@@ -131,19 +153,35 @@ const PhotoDetails = () => {
 
             {/* Actions */}
             <div className="mt-8 flex gap-3">
+
+              {/* Favorite Button */}
               <button
+                type="button"
+                onClick={handleFavorite}
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-500 px-6 py-3 font-bold text-white shadow-lg transition hover:-translate-y-1"
               >
-                <FaRegHeart />
-                Add Favorite
+                {favorite ? (
+                  <>
+                    <FaHeart />
+                    Remove Favorite
+                  </>
+                ) : (
+                  <>
+                    <FaRegHeart />
+                    Add Favorite
+                  </>
+                )}
               </button>
 
+              {/* Back Button */}
               <button
+                type="button"
                 onClick={() => navigate(-1)}
                 className="rounded-xl border border-gray-200 bg-white px-6 py-3 font-bold text-gray-700 transition hover:border-violet-300 hover:text-violet-600"
               >
                 Back
               </button>
+
             </div>
           </div>
         </div>

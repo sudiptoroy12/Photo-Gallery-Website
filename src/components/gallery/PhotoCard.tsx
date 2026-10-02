@@ -1,24 +1,33 @@
-
 import { FaHeart, FaRegHeart, FaExpand } from "react-icons/fa";
 import type { IPhoto } from "../../types/Phototypes";
-
+import { useFavorite } from "../../context/FavoriteContext";
 
 interface PhotoCardProps {
   photo: IPhoto;
-  isFavorite?: boolean;
-  onFavorite?: (photo: IPhoto) => void;
   onView?: (photo: IPhoto) => void;
 }
 
 const PhotoCard = ({
   photo,
-  isFavorite = false,
-  onFavorite,
+
   onView,
 }: PhotoCardProps) => {
+  const { addFavorite, removeFavorite, isFavorite } = useFavorite();
+
+  const favorite = isFavorite(photo.id);
+
+
+
+  const handleFavorite = () => {
+    if (favorite) {
+      removeFavorite(photo.id);
+    } else {
+      addFavorite(photo);
+    }
+  };
+
   return (
     <div className="group overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-      
       {/* Image */}
       <div className="relative aspect-square overflow-hidden">
         <img
@@ -30,10 +39,10 @@ const PhotoCard = ({
         {/* Favorite */}
         <button
           type="button"
-          onClick={() => onFavorite?.(photo)}
+          onClick={handleFavorite}
           className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md transition hover:scale-110"
         >
-          {isFavorite ? (
+          {favorite ? (
             <FaHeart color="#ec4899" size={17} />
           ) : (
             <FaRegHeart color="#374151" size={17} />
@@ -69,4 +78,3 @@ const PhotoCard = ({
 };
 
 export default PhotoCard;
-
