@@ -5,7 +5,7 @@ import PhotoCard from "../components/gallery/PhotoCard";
 
     
 
-const Albums = () => {
+const Gallery = () => {
       const [photos, setPhotos] = useState<IPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -72,4 +72,4 @@ const Albums = () => {
   );
 };
 
-export default Albums;
+export default Gallery;

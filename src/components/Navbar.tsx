@@ -11,7 +11,7 @@ import {
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Albums", href: "/albums" },
+  { name: "Gallery", href: "/gallery" },
   { name: "Favorites", href: "/favorites" },
   { name: "About", href: "/about" },
 ];

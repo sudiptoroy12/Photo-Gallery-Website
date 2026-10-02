@@ -35,7 +35,7 @@ const Banner = () => {
           {/* Buttons */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="/albums"
+              href="/gallery"
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-violet-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               Explore Gallery

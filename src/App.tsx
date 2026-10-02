@@ -5,7 +5,8 @@ import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import PhotoDetails from "./pages/PhotoDetails";
-import Albums from "./pages/Albums";
+import About from "./pages/About";
+import Gallery from "./pages/Gallery";
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
      
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/albums" element={<Albums />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/about" element={<About />} />
         <Route path="/photos/:id" element={<PhotoDetails />} />
       </Routes>
 
